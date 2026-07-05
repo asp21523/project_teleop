@@ -2,8 +2,7 @@
 
 A ROS 2 project that enables **vision-based teleoperation** of a **Franka Panda robotic manipulator** using only a webcam and MediaPipe hand tracking.
 
-The objective is to control the robot without requiring expensive motion-capture systems or specialized gloves. Human hand movements are interpreted through computer vision, converted into robot commands, and executed using MoveIt 2.
-
+This project is intended as a learning platform for understanding the fundamentals of vision-based robot teleoperation before transitioning to more sophisticated interfaces such as motion-capture systems or data gloves.
 ---
 
 
@@ -159,19 +158,6 @@ hand_teleop/
 
 ---
 
-# Demo
-
-🚧 Demo video coming soon.
-
-Planned demonstration:
-
-- Hand detection using a webcam
-- Target selection using the index fingertip
-- Robot arm moving to the selected position
-- Pinch gesture closing the gripper
-- Open hand opening the gripper
-
----
 
 # Author
 
