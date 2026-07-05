@@ -21,6 +21,7 @@ class MoveItTeleopNode(Node):
 
         self.latest_pose = None
         self.goal_active = False
+        self.arm_done = False
 
         self.sub = self.create_subscription(
             PoseStamped,
@@ -30,16 +31,21 @@ class MoveItTeleopNode(Node):
         )
 
         self.client = ActionClient(self, MoveGroup, "/move_action")
-
         self.timer = self.create_timer(2.0, self.send_goal_timer)
 
         self.get_logger().info("MoveIt teleop node started")
-        self.get_logger().info("Waiting for /move_action...")
+        self.get_logger().info("Arm will move once, then freeze")
 
     def pose_callback(self, msg):
+        if self.arm_done:
+            return
+
         self.latest_pose = msg
 
     def send_goal_timer(self):
+        if self.arm_done:
+            return
+
         if self.latest_pose is None:
             return
 
@@ -87,12 +93,12 @@ class MoveItTeleopNode(Node):
         orientation_constraint.weight = 0.1
 
         constraints.orientation_constraints.append(orientation_constraint)
-
         goal.request.goal_constraints.append(constraints)
 
         self.goal_active = True
+
         self.get_logger().info(
-            f"Sending goal: x={pose.pose.position.x:.2f}, "
+            f"Sending one arm goal: x={pose.pose.position.x:.2f}, "
             f"y={pose.pose.position.y:.2f}, "
             f"z={pose.pose.position.z:.2f}"
         )
@@ -115,6 +121,8 @@ class MoveItTeleopNode(Node):
     def result_callback(self, future):
         result = future.result().result
         self.get_logger().info(f"MoveIt result error code: {result.error_code.val}")
+        self.get_logger().info("Arm movement finished. Arm is now frozen.")
+        self.arm_done = True
         self.goal_active = False
 
 

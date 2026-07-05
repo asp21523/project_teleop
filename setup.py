@@ -31,6 +31,8 @@ setup(
             'gesture_detector_node = hand_teleop.gesture_detector_node:main',
             'pose_mapper_node = hand_teleop.pose_mapper_node:main',
             'moveit_teleop_node = hand_teleop.moveit_teleop_node:main',
+            'gripper_control_node = hand_teleop.gripper_control_node:main',
+            'target_selector_node = hand_teleop.target_selector_node:main',
         ],
     },
 )
