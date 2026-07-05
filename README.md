@@ -6,6 +6,10 @@ The objective is to control the robot without requiring expensive motion-capture
 
 ---
 
+
+# Demo
+
+![Vision-Based Teleoperation Demo](media/gif1_teleop.gif)
 # Features
 
 - Webcam-based hand tracking using MediaPipe
